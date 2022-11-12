@@ -6,6 +6,7 @@
 
 fetch API 
 react-bootstrap
+REDUX
 Cloudinary.com - for storing user picture
 socket.io - client
 
