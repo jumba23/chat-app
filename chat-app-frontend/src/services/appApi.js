@@ -17,9 +17,27 @@ const appApi = createApi({
                 body: user,
             }),
         }),
+
         // login
         loginUser: builder.mutation({
-            
+            query: (user) =>({
+            url: "/users/login",
+            method: "POST", 
+            body: user, 
+            }),         
+        }),
+
+        // logout
+            logoutUser: builder.mutation({
+            query: (payload)=>({
+                url: "/logout",
+                method: "DELETE",
+                body: payload,
+            })
         })
     }),
 })
+
+export const {useSignupUserMutation, useLoginUserMutation, useLogoutUserMutation} = appApi;
+
+export default appApi;

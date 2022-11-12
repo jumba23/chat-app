@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import {useSignupUserMutation } from "../services/appApi"
 import { Link } from "react-router-dom";
 import botImg from "../assets/bot.jpg";
 
@@ -7,7 +8,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-
+ const [signupUser, {isLoading, error}] = useSignupUserMutation()
   //image upload states
   const [image, setImage] = useState(null);
   const [uploadingImg, setUploadingImg] = useState(false);
@@ -53,6 +54,11 @@ const Signup = () => {
     const url = await uploadImage(image);
     console.log(url)
     //signup the user
+    signupUser({name, email, password, picture: url}).then(({data}) => {
+      if(data){
+        console.log(data)
+      }
+    })
   };
 
   return (
