@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const userRoutes = require('./routes/userRoutes')
-
+const User = require("./models/User")
 const rooms = ['general','tech','finance','crypto']
 const cors = require('cors')
 
@@ -22,10 +22,47 @@ const io = require('socket.io')(server, {
     }
 })
 
-
-
 app.get('/rooms', (req,res)=>{
     res.json(rooms)
+})
+
+const getLastMessagesFromRoom =async (room)=>{
+    let roomMessages = await Message.aggregate([
+        {$match: {to: room}},
+        {$group: {_id:'$date', messageByDate: {$push: '$$ROOT'}}}
+    ])
+    return roomMessages
+}
+
+//sorting by date
+
+const sortRoomMessagesByDate = (messages) =>{
+    return messages.sort((a,b)=>{
+        let date1 = a._id.split('/')
+        let date2 = a._id.split('/')
+
+        date1 = date1[2] + date1[0] + date1[1]
+        date2 = date2[2] + date2[0] + date2[1]
+
+        return date1 < date2 ? -1 : 1
+    })
+}
+
+//socket connection - sending an event
+
+io.on('connection',(socket)=> {
+
+    socket.on('new-user', async() =>{
+        const members = await User.find()
+        io.emit('new-user', members)
+    })
+
+    socket.on('join-room', async(room)=>{
+        socket.join(rooms)
+        let roomMessages = await getLastMessagesFromRoom(room)
+        roomMessages = sortRoomMessagesByDate(roomMessages)
+        socket.emit('room-messages', roomMessages) 
+    })
 })
 
 server.listen(PORT, ()=> {

@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ListGroup } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { AppContext } from "../context/appContext";
 
 const Sidebar = () => {
-  const rooms = ["first room", "second room", "third room"];
   const user = useSelector((state) => state.user);
+  const {
+    socket,
+    setMembers,
+    members,
+    setCurrentRoom,
+    setRooms,
+    privateMemberMsg,
+    rooms,
+    setPrivateMemberMsg,
+    currentRoom,
+  } = useContext(AppContext);
+  socket.off("new-user").on("new-user", (payload) => {
+   setMembers(payload)
+  });
   if (!user) return <></>;
   return (
     <>
@@ -15,6 +29,11 @@ const Sidebar = () => {
         ))}
       </ListGroup>
       <h2>Members</h2>
+      {members.map((member,idx) => (
+        <ListGroup.Item key={idx} style={{cursor: "pointer"}}>
+          {member.name}
+        </ListGroup.Item>
+      ))}
     </>
   );
 };
