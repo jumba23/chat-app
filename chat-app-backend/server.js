@@ -22,6 +22,12 @@ const io = require('socket.io')(server, {
     }
 })
 
+
+
+app.get('/rooms', (req,res)=>{
+    res.json(rooms)
+})
+
 server.listen(PORT, ()=> {
     console.log('Listening to port',PORT)
 })
