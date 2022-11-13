@@ -29,7 +29,7 @@ app.get("/rooms", (req, res) => {
 const getLastMessagesFromRoom = async (room) => {
   let roomMessages = await Message.aggregate([
     { $match: { to: room } },
-    { $group: { _id: "$date", messageByDate: { $push: "$$ROOT" } } },
+    { $group: { _id: "$date", messagesByDate: { $push: "$$ROOT" } } },
   ]);
   return roomMessages;
 };
@@ -64,7 +64,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("message-room", async (room, content, sender, time, date) => {
-    console.log('new message', content)
+    console.log("new message", content);
     const newMessage = await Message.create({
       content,
       from: sender,
@@ -75,9 +75,25 @@ io.on("connection", (socket) => {
     let roomMessages = await getLastMessagesFromRoom(room);
     roomMessages = sortRoomMessagesByDate(roomMessages);
     // sending message to room
-    io.to(room).emit("room-messages", room);
+    io.to(room).emit("room-messages", roomMessages);
 
     socket.broadcast.emit("notifications", room);
+  });
+
+  app.delete("/logout", async (req, res) => {
+    try {
+      const { _id, newMessages } = req.body;
+      const user = await User.findById(_id);
+      user.status = "offline";
+      user.newMessages = newMessages;
+      await user.save();
+      const members = await User.find();
+      socket.broadcast.emit("new-user", members);
+      res.status(200).send();
+    } catch (e) {
+      console.log(e);
+      res.status(400).send();
+    }
   });
 });
 

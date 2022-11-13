@@ -13,12 +13,9 @@ const MessageForm = () => {
     const date = new Date();
     const year = date.getFullYear();
     let month = (1 + date.getMonth()).toString();
-
     month = month.length > 1 ? month : "0" + month;
     let day = date.getDate().toString();
-
     day = day.length > 1 ? day : "0" + day;
-
     return month + "/" + day + "/" + year;
   };
 
@@ -43,6 +40,17 @@ const MessageForm = () => {
     <>
       <div className="message-output">
         {!user && <div className="alert alert-danger">Please login</div>}
+
+        {user && messages.map(({_id: date, messagesByDate}, idx) => (
+          <div key={idx}>
+            <p className="alert alert-info text-center message-date-indicator">{date}</p>
+            {messagesByDate?.map(({content, time, from: sender}, msgIdx) => (
+              <div className="message" key={msgIdx}>
+                <p>{content}</p>
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
       <Form onSubmit={handleSubmit}>
         <Row>

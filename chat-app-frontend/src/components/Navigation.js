@@ -8,7 +8,7 @@ const Navigation = () => {
   const user = useSelector((state) => state.user);
   const [logoutUser] = useLogoutUserMutation();
   const handleLogout = async (e) => {
-    e.preventDefault();
+    e.preventDefault();      
     await logoutUser(user);
     // redirect to home page
     window.location.replace("/");
