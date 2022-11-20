@@ -1,10 +1,12 @@
 import React, { useContext, useEffect } from "react";
 import { ListGroup } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppContext } from "../context/appContext";
+import { addNotifications, resetNotifications } from "../features/userSlice";
 
 const Sidebar = () => {
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const {
     socket,
     setMembers,
@@ -28,6 +30,12 @@ const Sidebar = () => {
       setPrivateMemberMsg(null);
     }
     //dispatch for notifications
+    dispatch(resetNotifications(room));
+
+    socket.off("notifications").on("notifications", (room) => {
+      console.log(room);
+      dispatch(addNotifications(room));
+    });
   };
 
   useEffect(() => {
@@ -49,13 +57,23 @@ const Sidebar = () => {
       .then((data) => setRooms(data));
   };
 
+  const orderIds = (id1, id2) => {
+    return id1 > id2 ? id1 + "-" + id2 : id2 + "-" + id1;
+  };
+
+  const handlePrivateMemberMsg = (member) => {
+    setPrivateMemberMsg(member);
+    const roomId = orderIds(user._id, member._id);
+    joinRoom(roomId, false);
+  };
+
   if (!user) return <></>;
 
   return (
     <>
       <h2>Available rooms</h2>
       <ListGroup>
-        {rooms.map((room, idx) => (
+        {rooms?.map((room, idx) => (
           <ListGroup.Item
             key={idx}
             onClick={() => joinRoom(room)}
@@ -66,14 +84,25 @@ const Sidebar = () => {
               justifyContent: "space-between",
             }}
           >
-            {room} {currentRoom !== room && <span></span>}
+            {room}{" "}
+            {currentRoom !== room && (
+              <span className="badge rounded-pill bg-primary">
+                {user.newMessage[room]}
+              </span>
+            )}
           </ListGroup.Item>
         ))}
       </ListGroup>
       <h2>Members</h2>
       <ListGroup>
         {members.map((member, idx) => (
-          <ListGroup.Item key={idx} style={{ cursor: "pointer" }}>
+          <ListGroup.Item
+            key={idx}
+            style={{ cursor: "pointer" }}
+            active={privateMemberMsg?._id == member?._id}
+            onClick={() => handlePrivateMemberMsg(member)}
+            disabled={member._id === user._id}
+          >
             {member.name}
           </ListGroup.Item>
         ))}
