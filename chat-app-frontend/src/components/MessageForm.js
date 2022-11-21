@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { AppContext } from "../context/appContext";
@@ -8,6 +8,11 @@ const MessageForm = () => {
   const user = useSelector((state) => state.user);
   const { socket, currentRoom, setMessages, messages, privateMemberMsg } =
     useContext(AppContext);
+  const messageEndRef = useRef(null);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const getFormattedDate = () => {
     const date = new Date();
@@ -19,19 +24,23 @@ const MessageForm = () => {
     return month + "/" + day + "/" + year;
   };
 
+  const scrollToBottom = () => {
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   const todayDate = getFormattedDate();
 
   socket.off("room-messages").on("room-messages", (roomMessages) => {
-    setMessages(roomMessages)
-  })
+    setMessages(roomMessages);
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(!message) return
+    if (!message) return;
     const today = new Date();
     const minutes =
       today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
-    const time = today.getHours + ":" + minutes;
+    const time = today.getHours() + ":" + minutes;
     const roomId = currentRoom;
     socket.emit("message-room", roomId, message, user, time, todayDate);
     setMessage("");
@@ -39,18 +48,52 @@ const MessageForm = () => {
   return (
     <>
       <div className="message-output">
+      {user && !privateMemberMsg?._id && <div className="alert alert-info">You are in the {currentRoom} room</div>}
+    
         {!user && <div className="alert alert-danger">Please login</div>}
 
-        {user && messages.map(({_id: date, messagesByDate}, idx) => (
-          <div key={idx}>
-            <p className="alert alert-info text-center message-date-indicator">{date}</p>
-            {messagesByDate?.map(({content, time, from: sender}, msgIdx) => (
-              <div className="message" key={msgIdx}>
-                <p>{content}</p>
-              </div>
-            ))}
-          </div>
-        ))}
+        {user &&
+          messages.map(({ _id: date, messagesByDate }, idx) => (
+            <div key={idx}>
+              <p className="alert alert-info text-center message-date-indicator">
+                {date}
+              </p>
+              {messagesByDate?.map(
+                ({ content, time, from: sender }, msgIdx) => (
+                  <div
+                    className={
+                      sender?.email === user?.email
+                        ? "message"
+                        : "incoming-message"
+                    }
+                    key={msgIdx}
+                  >
+                    <div className="message-inner">
+                      <div className="d-flex align-items-center mb-3">
+                        <img
+                          src={sender.picture}
+                          style={{
+                            width: 35,
+                            height: 35,
+                            objectFit: "cover",
+                            borderRadius: "50%",
+                            marginRight: 10,
+                          }}
+                          alt="person sending the message"
+                        />
+                        <p className="message-sender">
+                          {sender._id === user?._id ? "You" : sender.name}
+                        </p>
+                      </div>
+                      <p className="message-content">{content}</p>
+                      <p className="message-timestamp-left">{time}</p>
+                    </div>
+                  </div>
+                )
+              )}
+            </div>
+          ))}
+        <div ref={messageEndRef} />
       </div>
       <Form onSubmit={handleSubmit}>
         <Row>
@@ -61,7 +104,7 @@ const MessageForm = () => {
                 placeholder="Your message"
                 disabled={!user}
                 value={message}
-                onChange={(e)=>setMessage(e.target.value)}
+                onChange={(e) => setMessage(e.target.value)}
               ></Form.Control>
             </Form.Group>
           </Col>
