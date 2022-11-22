@@ -49,16 +49,16 @@ const sortRoomMessagesByDate = (messages) => {
 };
 
 //socket connection - sending an event
-
 io.on("connection", (socket) => {
   socket.on("new-user", async () => {
     const members = await User.find();
     io.emit("new-user", members);
   });
 
-  socket.on("join-room", async (room) => {
-    socket.join(rooms);
-    let roomMessages = await getLastMessagesFromRoom(room);
+  socket.on("join-room", async (newRoom, previousRoom) => {
+    socket.join(newRoom)
+    socket.leave(previousRoom);
+    let roomMessages = await getLastMessagesFromRoom(newRoom);
     roomMessages = sortRoomMessagesByDate(roomMessages);
     socket.emit("room-messages", roomMessages);
   });

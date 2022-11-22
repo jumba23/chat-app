@@ -23,7 +23,7 @@ const Sidebar = () => {
     if (!user) {
       return alert("Please login");
     }
-    socket.emit("join-room", room);
+    socket.emit("join-room", room, currentRoom);
     setCurrentRoom(room);
 
     if (isPublic) {
@@ -66,6 +66,7 @@ const Sidebar = () => {
     joinRoom(roomId, false);
   };
 
+  // console.log(user)
   if (!user) return <></>;
 
   return (
@@ -86,7 +87,7 @@ const Sidebar = () => {
             {room}{" "}
             {currentRoom !== room && (
               <span className="badge rounded-pill bg-primary">
-                {user.newMessage[room]}
+                {1}
               </span>
             )}
           </ListGroup.Item>
@@ -122,7 +123,7 @@ const Sidebar = () => {
               </Col>
               <Col xs={1}>
                 <span className="badge rounded-pill bg-primary">
-                  {user.newMessage[orderIds(member._id, user._id)]}
+                  {/* {user.newMessages[orderIds(member._id, user._id)]} */}
                 </span>
               </Col>
             </Row>
