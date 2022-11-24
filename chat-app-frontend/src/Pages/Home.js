@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row, Col, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-// import './App.css'
+
 
 const Home = () => {
   return (
@@ -13,9 +13,9 @@ const Home = () => {
       <div>
         <h1>Get in touch with your friends</h1>
         <p>Chat App lets you connect with the world</p>
-        <LinkContainer to="/">
+        <LinkContainer to="/chat">
           <Button variant="success">
-            Get Started
+            Lets Chat!
             <i className="fas fa-comments homes-message-icon" />
           </Button>
         </LinkContainer>

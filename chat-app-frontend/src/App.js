@@ -17,10 +17,18 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [privateMemberMsg, setPrivateMemberMsg] = useState({});
   const [newMessages, setNewMessages] = useState({});
+  const [theme, setTheme] = useState("light")
   const user = useSelector((state) => state.user);
+
+  const toggleTheme = () => {
+    setTheme((current)=> (current === "light" ? "dark" : "light"))
+  }
+
   return (
     <AppContext.Provider
       value={{
+        theme,
+        setTheme,
         socket,
         rooms,
         setRooms,

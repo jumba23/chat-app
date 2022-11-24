@@ -48,12 +48,12 @@ const MessageForm = () => {
   return (
     <>
       <div className="message-output">
-      {user && !privateMemberMsg?._id && <div className="alert alert-info">You are in the {currentRoom} room</div>}
+      {user && !privateMemberMsg?._id && <div className="d-flex justify-content-center alert alert-info">You are in the {currentRoom} room</div>}
       {user && privateMemberMsg?._id && 
       <>
-        <div className="alert alert-info conversation-info">
-          <div>
-            Your conversation with {privateMemberMsg.name} <img src={privateMemberMsg.picture} className="conversation-profile-picture" alt="the person im having a conversation with"/>
+        <div className="d-flex justify-content-center alert alert-info conversation-info">
+          <div >
+            Chatting with {privateMemberMsg.name} <img src={privateMemberMsg.picture} className="conversation-profile-picture" alt="the person im having a conversation with"/>
           </div>
         </div>
       </>
@@ -64,8 +64,8 @@ const MessageForm = () => {
         {user &&
           messages.map(({ _id: date, messagesByDate }, idx) => (
             <div key={idx}>
-              <p className="alert alert-info text-center message-date-indicator">
-                {date}
+              <p className="text-center mb-0">
+                <em>{date}</em>
               </p>
               {messagesByDate?.map(
                 ({ content, time, from: sender }, msgIdx) => (
@@ -121,7 +121,7 @@ const MessageForm = () => {
             <Button
               variant="primary"
               type="submit"
-              style={{ width: "100%", backgroundColor: "orange" }}
+              style={{ width: "100%", backgroundColor: "orange"}}
               disabled={!user}
             >
               <i className="fas fa-paper-plane"></i>

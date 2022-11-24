@@ -95,7 +95,7 @@
 .message-inner {
   margin-left: 20px;
   margin-bottom: 10px;
-  padding: 10px;
+  padding: 0.3rem;
   min-width: 200px;
   max-width: 90%;
   text-align: left;
@@ -120,6 +120,7 @@
     font-size: 0.85em;
     font-weight: 300;
     margin-top: 10px;
+    margin-bottom: 0;
 }
 
 .message-sender{
@@ -136,15 +137,12 @@
   padding: 0;
   margin: 0 auto;
   text-align: center;
-  height: 100px;
+  height: 3rem;
 }
 
 .conversation-profile-picture{
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  margin: 10px auto;
-  margin-bottom: 30px;
+  width: 40px;
+  margin: 0 auto;
   border-radius: 50%;
   margin-left: 10px;
 

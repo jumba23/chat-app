@@ -8,7 +8,7 @@ const Navigation = () => {
   const user = useSelector((state) => state.user);
   const [logoutUser] = useLogoutUserMutation();
   const handleLogout = async (e) => {
-    e.preventDefault();      
+    e.preventDefault();
     await logoutUser(user);
     // redirect to home page
     window.location.replace("/");
@@ -30,13 +30,12 @@ const Navigation = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             {!user && (
-              <LinkContainer to="/login">
-                <Nav.Link>Login</Nav.Link>
-              </LinkContainer>
+              <>
+                <LinkContainer to="/login">
+                  <Nav.Link>Login</Nav.Link>
+                </LinkContainer>
+              </>
             )}
-            <LinkContainer to="/chat">
-              <Nav.Link>Chat</Nav.Link>
-            </LinkContainer>
             {user && (
               <NavDropdown
                 title={
@@ -57,9 +56,9 @@ const Navigation = () => {
                 }
                 id="basic-nav-dropdown"
               >
-                <NavDropdown.Item>Action</NavDropdown.Item>
-                <NavDropdown.Item>Another action</NavDropdown.Item>
-                <NavDropdown.Item>Something</NavDropdown.Item>
+                <NavDropdown.Item>Profile</NavDropdown.Item>
+                <NavDropdown.Item>Preferences</NavDropdown.Item>
+                <NavDropdown.Item>Settings</NavDropdown.Item>
 
                 <NavDropdown.Item>
                   <Button variant="danger" onClick={handleLogout}>

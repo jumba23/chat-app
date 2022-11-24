@@ -34,7 +34,7 @@ const Sidebar = () => {
   };
 
   socket.off("notifications").on("notifications", (room) => {
-    if(currentRoom !== room) dispatch(addNotifications(room))
+    if (currentRoom !== room) dispatch(addNotifications(room));
   });
 
   useEffect(() => {
@@ -66,13 +66,12 @@ const Sidebar = () => {
     joinRoom(roomId, false);
   };
 
-  // console.log(user)
   if (!user) return <></>;
-
+  console.log(user);
   return (
     <>
-      <h2>Available rooms</h2>
-      <ListGroup>
+      <h4>Available rooms</h4>
+      <ListGroup className="pb-5">
         {rooms?.map((room, idx) => (
           <ListGroup.Item
             key={idx}
@@ -83,17 +82,18 @@ const Sidebar = () => {
               display: "flex",
               justifyContent: "space-between",
             }}
+            action
           >
             {room}{" "}
             {currentRoom !== room && (
               <span className="badge rounded-pill bg-primary">
-                {1}
+                {user[room]}
               </span>
             )}
           </ListGroup.Item>
         ))}
       </ListGroup>
-      <h2>Members</h2>
+      <h4 className="sidebar-title">Your Friends</h4>
       <ListGroup>
         {members.map((member, idx) => (
           <ListGroup.Item
@@ -102,6 +102,7 @@ const Sidebar = () => {
             active={privateMemberMsg?._id === member?._id}
             onClick={() => handlePrivateMemberMsg(member)}
             disabled={member._id === user._id}
+            action
           >
             <Row>
               <Col xs={2} className="member-status">
@@ -123,7 +124,7 @@ const Sidebar = () => {
               </Col>
               <Col xs={1}>
                 <span className="badge rounded-pill bg-primary">
-                  {/* {user.newMessages[orderIds(member._id, user._id)]} */}
+                  {user[orderIds(member._id, user._id)]}
                 </span>
               </Col>
             </Row>
