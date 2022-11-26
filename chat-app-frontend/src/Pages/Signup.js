@@ -135,7 +135,9 @@ const Signup = () => {
           </div>
         </Form>
       </Col>
-      <Col md={5} className="d-flex align-items-center signup-bg"><img style={{maxHeight: "90%"}} src={SignUpBg} alt=""/></Col>
+      <Col md={5} className="d-flex align-items-center signup-bg">
+        <img style={{ maxHeight: "90%" }} src={SignUpBg} alt="" />
+      </Col>
     </Row>
   );
 };

@@ -21,8 +21,8 @@ function App() {
   const user = useSelector((state) => state.user);
 
   const toggleTheme = () => {
-    setTheme((current)=> (current === "light" ? "dark" : "light"))
-  }
+    setTheme((current) => (current === "light" ? "dark" : "light"));
+  };
 
   return (
     <AppContext.Provider

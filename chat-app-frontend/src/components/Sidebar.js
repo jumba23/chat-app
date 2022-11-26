@@ -72,14 +72,14 @@ const Sidebar = () => {
   return (
     <>
       <h4 className="sidebar-title">Available rooms</h4>
-      <ListGroup className="pb-5" >
+      <ListGroup className="pb-5">
         {rooms?.map((room, idx) => (
           <ListGroup.Item
             key={idx}
             bg="dark"
             onClick={() => joinRoom(room)}
             active={room === currentRoom}
-            variant={theme === "dark" ? "dark": "primary"}
+            variant={theme === "dark" ? "dark" : "primary"}
             style={{
               cursor: "pointer",
               display: "flex",
@@ -100,8 +100,8 @@ const Sidebar = () => {
       <ListGroup>
         {members.map((member, idx) => (
           <ListGroup.Item
-            key={idx} 
-            variant={theme === "dark" ? "dark": "primary"}
+            key={idx}
+            variant={theme === "dark" ? "dark" : "primary"}
             style={{ cursor: "pointer" }}
             active={privateMemberMsg?._id === member?._id}
             onClick={() => handlePrivateMemberMsg(member)}

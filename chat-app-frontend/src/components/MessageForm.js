@@ -6,8 +6,14 @@ import { AppContext } from "../context/appContext";
 const MessageForm = () => {
   const [message, setMessage] = useState("");
   const user = useSelector((state) => state.user);
-  const { theme,socket, currentRoom, setMessages, messages, privateMemberMsg } =
-    useContext(AppContext);
+  const {
+    theme,
+    socket,
+    currentRoom,
+    setMessages,
+    messages,
+    privateMemberMsg,
+  } = useContext(AppContext);
   const messageEndRef = useRef(null);
 
   useEffect(() => {
@@ -48,17 +54,33 @@ const MessageForm = () => {
   return (
     <>
       <div className="message-output">
-      {user && !privateMemberMsg?._id && <div className="d-flex justify-content-center align-items-center conversation-info" style={{backgroundColor: theme==="dark" ? "gray":"lightblue"}}>You are in the {currentRoom} room</div>}
-      {user && privateMemberMsg?._id && 
-      <>
-        <div className="d-flex justify-content-center align-items-center conversation-info" style={{backgroundColor: theme==="dark" ? "gray":"lightblue"}}>
-          <div >
-            Chatting with {privateMemberMsg.name} <img src={privateMemberMsg.picture} className="conversation-profile-picture" alt="the person im having a conversation with"/>
+        {user && !privateMemberMsg?._id && (
+          <div
+            className="d-flex justify-content-center align-items-center conversation-info"
+            style={{ backgroundColor: theme === "dark" ? "gray" : "lightblue" }}
+          >
+            You are in the {currentRoom} room
           </div>
-        </div>
-      </>
-      
-      }
+        )}
+        {user && privateMemberMsg?._id && (
+          <>
+            <div
+              className="d-flex justify-content-center align-items-center conversation-info"
+              style={{
+                backgroundColor: theme === "dark" ? "gray" : "lightblue",
+              }}
+            >
+              <div>
+                Chatting with {privateMemberMsg.name}{" "}
+                <img
+                  src={privateMemberMsg.picture}
+                  className="conversation-profile-picture"
+                  alt="the person im having a conversation with"
+                />
+              </div>
+            </div>
+          </>
+        )}
         {!user && <div className="alert alert-danger">Please login</div>}
 
         {user &&
@@ -94,7 +116,7 @@ const MessageForm = () => {
                           {sender._id === user?._id ? "You" : sender.name}
                         </p>
                       </div>
-                      <p className="message-content mb-1" >{content}</p>
+                      <p className="message-content mb-1">{content}</p>
                       <p className="message-timestamp-left mt-1">{time}</p>
                     </div>
                   </div>
@@ -107,9 +129,9 @@ const MessageForm = () => {
       <Form onSubmit={handleSubmit}>
         <Row>
           <Col md={11}>
-            <Form.Group >
+            <Form.Group>
               <Form.Control
-              style={{backgroundColor: theme === "dark" ? "gray":"white"}}
+                style={{ backgroundColor: theme === "dark" ? "gray" : "white" }}
                 type="text"
                 placeholder="Your message"
                 disabled={!user}
@@ -122,7 +144,7 @@ const MessageForm = () => {
             <Button
               variant="primary"
               type="submit"
-              style={{ width: "100%", backgroundColor: "orange"}}
+              style={{ width: "100%", backgroundColor: "orange" }}
               disabled={!user}
             >
               <i className="fas fa-paper-plane"></i>

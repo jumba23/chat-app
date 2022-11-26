@@ -1,5 +1,6 @@
-.App{
-width: 100vw;
+.App {
+  /* width: 100vw; */
+  min-height: 100vh;
 }
 
 .home-bg {
@@ -8,14 +9,13 @@ width: 100vw;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  overflow-x:hidden;
+  overflow-x: hidden;
 }
 
 .login-bg {
   max-height: 90vh;
   overflow-x: hidden;
 }
-
 
 /*================= LIGHT/DARK THEME =============================== */
 
@@ -49,7 +49,6 @@ width: 100vw;
 #dark .incoming-message .message-inner {
   background-color: #838383;
 }
-
 
 /*================= SIGNUP =============================== */
 

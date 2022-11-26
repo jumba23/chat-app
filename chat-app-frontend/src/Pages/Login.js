@@ -1,40 +1,45 @@
-import React, {useContext, useState} from "react";
+import React, { useContext, useState } from "react";
 import { Form, Button, Container, Row, Col, Spinner } from "react-bootstrap";
-import {useLoginUserMutation} from "../services/appApi"
-import {Link, useNavigate} from "react-router-dom"
-import {AppContext} from "../context/appContext"
-import LoginImage from "../assets/login-bg.jpg"
+import { useLoginUserMutation } from "../services/appApi";
+import { Link, useNavigate } from "react-router-dom";
+import { AppContext } from "../context/appContext";
+import LoginImage from "../assets/login-bg.jpg";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate()
-  const {theme, socket} = useContext(AppContext)
-  const [loginUser, {isLoading, error}] = useLoginUserMutation()
+  const navigate = useNavigate();
+  const { theme, socket } = useContext(AppContext);
+  const [loginUser, { isLoading, error }] = useLoginUserMutation();
   const handleLogin = (e) => {
-    e.preventDefault()
-      // login logic
-      loginUser({email, password}).then(({data}) => {
-        if(data) {
-          // socket work
-          socket.emit('new-user')
-          // navigate to the chat
-          navigate("/chat")
-        }
-      })
-  }
+    e.preventDefault();
+    // login logic
+    loginUser({ email, password }).then(({ data }) => {
+      if (data) {
+        // socket work
+        socket.emit("new-user");
+        // navigate to the chat
+        navigate("/chat");
+      }
+    });
+  };
 
   return (
-    <Container style={{color: theme === "dark" ? "white":"black"}}>
+    <Container style={{ color: theme === "dark" ? "white" : "black" }}>
       <Row>
-        <Col md={5} className="login-bg d-flex align-items-center justify-content-center"><img style={{maxHeight: "90%"}} src={LoginImage} alt=""/></Col>
+        <Col
+          md={5}
+          className="login-bg d-flex align-items-center justify-content-center"
+        >
+          <img style={{ maxHeight: "90%" }} src={LoginImage} alt="" />
+        </Col>
         <Col
           md={7}
           className="d-flex align-items-center justify-content-center flex-direction-column"
         >
           <Form style={{ width: "80%", maxWidth: 500 }} onSubmit={handleLogin}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-            {error && <p className="alert alert-danger">{error.data}</p>}
+              {error && <p className="alert alert-danger">{error.data}</p>}
               <Form.Label>Email address</Form.Label>
               <Form.Control
                 type="email"
@@ -59,7 +64,7 @@ const Login = () => {
               />
             </Form.Group>
             <Button variant="primary" type="submit">
-              {isLoading ? <Spinner animation="grow"/> : "Login"}
+              {isLoading ? <Spinner animation="grow" /> : "Login"}
             </Button>
             <div className="py-4">
               <p className="text-center">

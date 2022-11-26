@@ -56,7 +56,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("join-room", async (newRoom, previousRoom) => {
-    socket.join(newRoom)
+    socket.join(newRoom);
     socket.leave(previousRoom);
     let roomMessages = await getLastMessagesFromRoom(newRoom);
     roomMessages = sortRoomMessagesByDate(roomMessages);
@@ -77,7 +77,7 @@ io.on("connection", (socket) => {
     // sending message to room
     io.to(room).emit("room-messages", roomMessages);
 
-    socket.broadcast.emit('notifications', room);
+    socket.broadcast.emit("notifications", room);
   });
 
   app.delete("/logout", async (req, res) => {
@@ -90,7 +90,7 @@ io.on("connection", (socket) => {
       const members = await User.find();
       socket.broadcast.emit("new-user", members);
       res.status(200).send();
-    } catch (e) {
+    } catch (e) { 
       console.log(e);
       res.status(400).send();
     }

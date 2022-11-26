@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { current } from '@reduxjs/toolkit'
+import { current } from "@reduxjs/toolkit";
 import appApi from "../services/appApi";
 
 export const userSlice = createSlice({
@@ -7,15 +7,13 @@ export const userSlice = createSlice({
   initialState: null,
   reducers: {
     addNotifications: (state, { payload }) => {
-      console.log(current(state))
-      if (state[payload] ) {
+      console.log(current(state));
+      if (state[payload]) {
         state[payload] = state[payload] + 1;
-        
       } else {
         state[payload] = 1;
-        
       }
-      console.log(current(state))
+      console.log(current(state));
     },
     resetNotifications: (state, { payload }) => {
       delete state[payload];
