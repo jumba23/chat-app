@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "heroku-postbuild": "npm install --prefix ../chat-app-frontend && npm run build --prefix ../chat-app-frontend"
+    "heroku-postbuild": "../chat-app-frontend && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
