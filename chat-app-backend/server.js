@@ -101,11 +101,11 @@ io.on("connection", (socket) => {
 });
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../chat-app-frontend/build")));
+  app.use(express.static("../chat-app-frontend/build"));
   console.log("im in production")
   app.get("*", (req, res) => {
     res.sendFile(
-      path.join(__dirname, "../chat-app-frontend/build", "index.html")
+      path.resolve(__dirname, "../chat-app-frontend/build", "index.html")
     );
   });
 }
