@@ -3,12 +3,13 @@ import { Form, Button, Container, Row, Col, Spinner } from "react-bootstrap";
 import {useLoginUserMutation} from "../services/appApi"
 import {Link, useNavigate} from "react-router-dom"
 import {AppContext} from "../context/appContext"
+import LoginImage from "../assets/login-bg.jpg"
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate()
-  const {socket} = useContext(AppContext)
+  const {theme, socket} = useContext(AppContext)
   const [loginUser, {isLoading, error}] = useLoginUserMutation()
   const handleLogin = (e) => {
     e.preventDefault()
@@ -24,9 +25,9 @@ const Login = () => {
   }
 
   return (
-    <Container>
+    <Container style={{color: theme === "dark" ? "white":"black"}}>
       <Row>
-        <Col md={5} className="login-bg"></Col>
+        <Col md={5} className="login-bg d-flex align-items-center justify-content-center"><img style={{maxHeight: "90%"}} src={LoginImage} alt=""/></Col>
         <Col
           md={7}
           className="d-flex align-items-center justify-content-center flex-direction-column"

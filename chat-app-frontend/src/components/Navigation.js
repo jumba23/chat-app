@@ -35,13 +35,13 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <div style={{display:"flex", marginLeft:"20rem"}}>
-            <Switch className="d-flex" onChange={toggleTheme} checked={theme === "dark"}/>
+            <Switch onChange={toggleTheme} checked={theme === "dark"}/>
           </div>
           <Nav className="ms-auto">
             {!user && (
               <>
                 <LinkContainer to="/login">
-                  <Nav.Link>Login</Nav.Link>
+                  <Nav.Link id="login-text">Login</Nav.Link>
                 </LinkContainer>
               </>
             )}

@@ -1,20 +1,21 @@
+.App{
+width: 100vw;
+}
+
 .home-bg {
-  background-image: url(./assets/home-bg.jpg);
-  height: 90vh;
+  height: 88vh;
+  width: 45vw;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  overflow-x: hidden;
+  overflow-x:hidden;
 }
 
 .login-bg {
-  background-image: url(./assets/login-bg.jpg);
-  height: 50vh;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  max-height: 90vh;
   overflow-x: hidden;
 }
+
 
 /*================= LIGHT/DARK THEME =============================== */
 
@@ -27,8 +28,9 @@
 }
 
 #dark #home-page-header,
-#page-text,
+#home-page-text,
 #msg-date,
+#login-text,
 .sidebar-title {
   color: rgb(177, 177, 177);
 }
@@ -48,11 +50,12 @@
   background-color: #838383;
 }
 
+
 /*================= SIGNUP =============================== */
 
 .signup-bg {
-  background-image: url(./assets/signup-bg.jpg);
-  height: 50vh;
+  height: 85vh;
+  width: 40vw;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
