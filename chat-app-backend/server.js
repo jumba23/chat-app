@@ -6,7 +6,7 @@ const User = require("./models/User");
 const Message = require("./models/Message");
 const rooms = ["general", "soccer", "coding", "kids"];
 const cors = require("cors");
-const PORT = process.env.PORT || 5001
+const PORT = process.env.PORT || 5001;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -18,8 +18,7 @@ require("./connection");
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "https://chat-app-fullstack-mern.herokuapp.com/",
-    // origin: "https://localhost:3000/",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"],
   },
 });
@@ -92,18 +91,22 @@ io.on("connection", (socket) => {
       const members = await User.find();
       socket.broadcast.emit("new-user", members);
       res.status(200).send();
-    } catch (e) { 
+    } catch (e) {
       console.log(e);
       res.status(400).send();
     }
   });
 });
 
-app.use(express.static(path.join(__dirname,"../chat-app-frontend/build")));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../chat-app-frontend/build", "index.html"));
-});
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("../chat-app-frontend/build"));
+  console.log("im in production")
+  app.get("*", (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, "../chat-app-frontend/build", "index.html")
+    );
+  });
+}
 
 server.listen(PORT, () => {
   console.log("Listening to port", PORT);
