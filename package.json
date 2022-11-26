@@ -1,0 +1,7 @@
+{
+    "name": "Chat app",
+    "version": "1.0.0",
+    "scripts": {
+        "start": "npm install --prefix chat-app-backend && npm install --prefix chat-app-frontend && npm start --prefix chat-app-backend && npm run build --prefix chat-app-frontend"
+       }
+  }
