@@ -98,10 +98,10 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use(express.static(path.join(__dirname, "../chat-app-frontend/build")));
+app.use(express.static("../chat-app-frontend/build"));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../chat-app-frontend/build", "index.html"));
+  res.sendFile(path.resolve(__dirname, "../chat-app-frontend", "build", "index.html"));
 });
 
 server.listen(PORT, () => {
