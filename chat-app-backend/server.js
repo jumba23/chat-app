@@ -18,7 +18,7 @@ require("./connection");
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://chat-app-fullstack-mern.herokuapp.com/",
     methods: ["GET", "POST"],
   },
 });
@@ -96,6 +96,12 @@ io.on("connection", (socket) => {
       res.status(400).send();
     }
   });
+});
+
+app.use(express.static(path.join(__dirname, "../chat-app-frontend/build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../chat-app-frontend/build", "index.html"));
 });
 
 server.listen(PORT, () => {
