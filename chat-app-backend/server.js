@@ -103,7 +103,7 @@ if (process.env.NODE_ENV === "production") {
   console.log("im in production")
   app.get("*", (req, res) => {
     res.sendFile(
-      path.resolve(__dirname, "../chat-app-frontend/build", "index.html")
+      path.join(__dirname, "../chat-app-frontend/build", "index.html")
     );
   });
 }
