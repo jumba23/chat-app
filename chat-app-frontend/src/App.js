@@ -17,7 +17,7 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [privateMemberMsg, setPrivateMemberMsg] = useState({});
   const [newMessages, setNewMessages] = useState({});
-  const [theme, setTheme] = useState("light")
+  const [theme, setTheme] = useState("light");
   const user = useSelector((state) => state.user);
 
   const toggleTheme = () => {
@@ -28,7 +28,7 @@ function App() {
     <AppContext.Provider
       value={{
         theme,
-        setTheme,
+        toggleTheme,
         socket,
         rooms,
         setRooms,
@@ -45,17 +45,19 @@ function App() {
       }}
     >
       <BrowserRouter>
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          {!user && (
-            <>
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-            </>
-          )}
-          <Route path="/chat" element={<Chat />} />
-        </Routes>
+        <div className="App" id={theme}>
+          <Navigation />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            {!user && (
+              <>
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+              </>
+            )}
+            <Route path="/chat" element={<Chat />} />
+          </Routes>
+        </div>
       </BrowserRouter>
     </AppContext.Provider>
   );

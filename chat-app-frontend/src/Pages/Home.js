@@ -10,9 +10,9 @@ const Home = () => {
       md={6}
       className="d-flex flex-direction-column align-items-center justify-content-center"
     >
-      <div>
-        <h1>Get in touch with your friends</h1>
-        <p>Chat App lets you connect with the world</p>
+      <div >
+        <h1 id="home-page-header">Get in touch with your friends</h1>
+        <p id="home=page-text">Chat App lets you connect with the world</p>
         <LinkContainer to="/chat">
           <Button variant="success">
             Lets Chat!

@@ -7,7 +7,7 @@
   overflow-x: hidden;
 }
 
-.login-bg{
+.login-bg {
   background-image: url(./assets/login-bg.jpg);
   height: 50vh;
   background-position: center;
@@ -16,9 +16,41 @@
   overflow-x: hidden;
 }
 
+/*================= LIGHT/DARK THEME =============================== */
+
+#light {
+  background-color: #ffffff;
+}
+
+#dark {
+  background-color: black;
+}
+
+#dark #home-page-header,
+#page-text,
+#msg-date,
+.sidebar-title {
+  color: rgb(177, 177, 177);
+}
+#dark #basic-nav-dropdown {
+  color: rgb(177, 177, 177);
+}
+
+#dark .message-output {
+  border: 1px solid gray;
+}
+
+#dark .message-inner {
+  background-color: #545655;
+}
+
+#dark .incoming-message .message-inner {
+  background-color: #838383;
+}
+
 /*================= SIGNUP =============================== */
 
-.signup-bg{
+.signup-bg {
   background-image: url(./assets/signup-bg.jpg);
   height: 50vh;
   background-position: center;
@@ -27,19 +59,19 @@
   overflow-x: hidden;
 }
 
-.signup-profile-pic-container{
-  width:100px;
+.signup-profile-pic-container {
+  width: 100px;
   height: 100px;
   position: relative;
   margin: 0 auto;
 }
 
-.signup-profile-pic{
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 2px solid gray;
-    object-fit: cover;
+.signup-profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid gray;
+  object-fit: cover;
 }
 
 .add-picture-icon {
@@ -54,7 +86,7 @@
 
 /* =============== MESSAGE FORM ========================= */
 
-.message-output{
+.message-output {
   height: 80vh;
   border: 1px solid lightgray;
   overflow-y: scroll;
@@ -106,24 +138,24 @@
   background-color: #d1e7dd;
 }
 
-.incoming-message .message-inner{
+.incoming-message .message-inner {
   background-color: #ffdab9;
 }
 
-.incoming-message{
+.incoming-message {
   display: flex;
   justify-content: flex-end;
   margin-right: 20px;
 }
 
 .message-timestamp-left {
-    font-size: 0.85em;
-    font-weight: 300;
-    margin-top: 10px;
-    margin-bottom: 0;
+  font-size: 0.85em;
+  font-weight: 300;
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 
-.message-sender{
+.message-sender {
   margin-bottom: 5px;
   font-weight: bold;
 }
@@ -133,17 +165,16 @@
   margin: 0;
 }
 
-.conversation-info{
+.conversation-info {
   padding: 0;
   margin: 0 auto;
   text-align: center;
   height: 3rem;
 }
 
-.conversation-profile-picture{
+.conversation-profile-picture {
   width: 40px;
   margin: 0 auto;
   border-radius: 50%;
   margin-left: 10px;
-
 }

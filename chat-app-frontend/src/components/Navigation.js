@@ -1,12 +1,18 @@
+import { useContext } from "react";
 import { Container, Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useLogoutUserMutation } from "../services/appApi";
 import { useSelector } from "react-redux";
+import { AppContext } from "../context/appContext";
 import logo from "../assets/logo.png";
+import Switch from "react-switch";
+// import LightTheme from "../assets/Light_theme.png"
+// import DarkTheme from "../assets/Dark_theme.png"
 
 const Navigation = () => {
   const user = useSelector((state) => state.user);
   const [logoutUser] = useLogoutUserMutation();
+  const {theme, toggleTheme} = useContext(AppContext);
   const handleLogout = async (e) => {
     e.preventDefault();
     await logoutUser(user);
@@ -15,7 +21,7 @@ const Navigation = () => {
   };
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg={theme} expand="lg">
       <Container>
         <LinkContainer to="/">
           <Navbar.Brand>
@@ -28,6 +34,9 @@ const Navigation = () => {
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
+          <div style={{display:"flex", marginLeft:"20rem"}}>
+            <Switch className="d-flex" onChange={toggleTheme} checked={theme === "dark"}/>
+          </div>
           <Nav className="ms-auto">
             {!user && (
               <>

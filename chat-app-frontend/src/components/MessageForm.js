@@ -6,7 +6,7 @@ import { AppContext } from "../context/appContext";
 const MessageForm = () => {
   const [message, setMessage] = useState("");
   const user = useSelector((state) => state.user);
-  const { socket, currentRoom, setMessages, messages, privateMemberMsg } =
+  const { theme,socket, currentRoom, setMessages, messages, privateMemberMsg } =
     useContext(AppContext);
   const messageEndRef = useRef(null);
 
@@ -48,10 +48,10 @@ const MessageForm = () => {
   return (
     <>
       <div className="message-output">
-      {user && !privateMemberMsg?._id && <div className="d-flex justify-content-center alert alert-info">You are in the {currentRoom} room</div>}
+      {user && !privateMemberMsg?._id && <div className="d-flex justify-content-center align-items-center conversation-info" style={{backgroundColor: theme==="dark" ? "gray":"lightblue"}}>You are in the {currentRoom} room</div>}
       {user && privateMemberMsg?._id && 
       <>
-        <div className="d-flex justify-content-center alert alert-info conversation-info">
+        <div className="d-flex justify-content-center align-items-center conversation-info" style={{backgroundColor: theme==="dark" ? "gray":"lightblue"}}>
           <div >
             Chatting with {privateMemberMsg.name} <img src={privateMemberMsg.picture} className="conversation-profile-picture" alt="the person im having a conversation with"/>
           </div>
@@ -64,7 +64,7 @@ const MessageForm = () => {
         {user &&
           messages.map(({ _id: date, messagesByDate }, idx) => (
             <div key={idx}>
-              <p className="text-center mb-0">
+              <p className="text-center mb-0" id="msg-date">
                 <em>{date}</em>
               </p>
               {messagesByDate?.map(
@@ -78,7 +78,7 @@ const MessageForm = () => {
                     key={msgIdx}
                   >
                     <div className="message-inner">
-                      <div className="d-flex align-items-center mb-3">
+                      <div className="d-flex align-items-center mb-1">
                         <img
                           src={sender.picture}
                           style={{
@@ -90,12 +90,12 @@ const MessageForm = () => {
                           }}
                           alt="person sending the message"
                         />
-                        <p className="message-sender">
+                        <p className="message-sender mt-1">
                           {sender._id === user?._id ? "You" : sender.name}
                         </p>
                       </div>
-                      <p className="message-content">{content}</p>
-                      <p className="message-timestamp-left">{time}</p>
+                      <p className="message-content mb-1" >{content}</p>
+                      <p className="message-timestamp-left mt-1">{time}</p>
                     </div>
                   </div>
                 )
@@ -107,8 +107,9 @@ const MessageForm = () => {
       <Form onSubmit={handleSubmit}>
         <Row>
           <Col md={11}>
-            <Form.Group>
+            <Form.Group >
               <Form.Control
+              style={{backgroundColor: theme === "dark" ? "gray":"white"}}
                 type="text"
                 placeholder="Your message"
                 disabled={!user}

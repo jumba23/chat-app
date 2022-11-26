@@ -8,6 +8,7 @@ const Sidebar = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const {
+    theme,
     socket,
     setMembers,
     members,
@@ -70,13 +71,15 @@ const Sidebar = () => {
   console.log(user);
   return (
     <>
-      <h4>Available rooms</h4>
-      <ListGroup className="pb-5">
+      <h4 className="sidebar-title">Available rooms</h4>
+      <ListGroup className="pb-5" >
         {rooms?.map((room, idx) => (
           <ListGroup.Item
             key={idx}
+            bg="dark"
             onClick={() => joinRoom(room)}
             active={room === currentRoom}
+            variant={theme === "dark" ? "dark": "primary"}
             style={{
               cursor: "pointer",
               display: "flex",
@@ -97,7 +100,8 @@ const Sidebar = () => {
       <ListGroup>
         {members.map((member, idx) => (
           <ListGroup.Item
-            key={idx}
+            key={idx} 
+            variant={theme === "dark" ? "dark": "primary"}
             style={{ cursor: "pointer" }}
             active={privateMemberMsg?._id === member?._id}
             onClick={() => handlePrivateMemberMsg(member)}
