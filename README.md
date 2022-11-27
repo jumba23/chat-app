@@ -14,3 +14,7 @@ socket.io - client
 
 socket.io - server
 mondgoDB
+
+
+##APP Context
+// const SOCKET_URL = "http://localhost:5001";
