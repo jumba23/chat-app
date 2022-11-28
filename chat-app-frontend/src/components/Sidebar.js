@@ -52,7 +52,7 @@ const Sidebar = () => {
   });
 
   const getRooms = () => {
-    fetch("http://chat-app-fullstack-mern.herokuapp.com/rooms")
+    fetch("https://chat-app-fullstack-mern.herokuapp.com/rooms")
       .then((res) => res.json())
       .then((data) => setRooms(data));
   };
