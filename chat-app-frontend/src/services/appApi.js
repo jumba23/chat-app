@@ -6,6 +6,7 @@ const appApi = createApi({
   reducerPath: "appApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://chat-app-fullstack-mern.herokuapp.com",
+    // baseUrl: "http://localhost:5001",
   }),
 
   endpoints: (builder) => ({
