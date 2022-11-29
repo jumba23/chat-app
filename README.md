@@ -1,5 +1,5 @@
 # Chat App 
-Chat App is a web application built with a React front-end and Node.js back-end. Socket.io is used for communication between frontend and backend
+Chat App is a web application built with a React frontend and Node.js backend. Socket.io is used for communication between frontend and backend
 
 Try out the live version here: [Chat App](https://chat-app-fullstack-mern.herokuapp.com/)
 
@@ -16,20 +16,20 @@ Features:
 ### Sign Up Page 
 The Sign Up page provides very simple and straight-forward instructions for new user creation. A picture is mandatory.
 
-![Chat App - Sign Up Page](https://user-images.githubusercontent.com/80366503/138932621-ee56a32f-2263-44ab-b5e7-1848749841f5.png)
+![chrome_rBDrizW8Nh](https://user-images.githubusercontent.com/80366503/204406626-eedc6719-6b68-4fe7-b6cb-67c59b3411fd.png)
 
 ### Chat Room Page 
 The Chat Room is the center-piece of the app. This is where a user can see available rooms, available friends, and historical presentation of their communication. 
 
-![Chat App - Chat Room](https://user-images.githubusercontent.com/80366503/138943638-e533bf7f-7d44-474b-b68c-ed3e454f992a.gif)
+![uEUGsZjnlz](https://user-images.githubusercontent.com/80366503/204406503-6dda1c65-8e50-4c67-b4fb-f61d64af20fd.png)
 
 ### Dark/Light Mode 
 Dark and light mode are available throughout the app and can be switched as desired.
 
-![Chat App - Dark Mode](https://user-images.githubusercontent.com/80366503/138945943-b07c17fd-0c8b-4521-bb5d-5c69bd3df35b.gif)
+![chrome_dmVCQrvE9g](https://user-images.githubusercontent.com/80366503/204406531-56175a31-598d-407d-b888-14b0b0a80e81.png)
+
 
 # Tools and Technologies 
-
 
 ### ***Client-side (Front-End)***
 
@@ -74,8 +74,8 @@ The below instructions can be followed if you want to run this project locally f
    - Navigate to project folder: ***cd PROJECT-FOLDER-NAME/server***
       - Install dependencies: npm install or npm i
       - In chat-app-backend folder add .env file to MongoDB file
-        DB_PW=<YOUR OWN>
-        DB_USER=<YOUR OWN>
+        DB_PW=YOUR OWN
+        DB_USER=YOUR OWN
       - From chat-app-backend start the server and the client simultaneously in development node: npm run dev 
 
 # Author
