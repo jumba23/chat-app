@@ -131,7 +131,7 @@ const MessageForm = () => {
           <Col md={11}>
             <Form.Group>
               <Form.Control
-                style={{ backgroundColor: theme === "dark" ? "gray" : "white" }}
+                style={{ backgroundColor: theme === "dark" ? "gray" : "white",  color: "black" }}
                 type="text"
                 placeholder="Your message"
                 disabled={!user}
